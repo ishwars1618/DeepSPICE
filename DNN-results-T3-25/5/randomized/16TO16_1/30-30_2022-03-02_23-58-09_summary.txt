@@ -1,0 +1,7 @@
+Time for naive approach: 49.51500000000001 sec
+Average time for ML approach: 30.97095958357258 sec
+Average error (MSE) for ML approach: 19.541152318318684
+Calculated Mean of test set: 41.13338810763889
+Calculated MSE: 19.541153924815244
+Calculated RMSE: 4.393809180705013
+Calculated NRMSE: 0.10681855745038998

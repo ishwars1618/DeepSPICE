@@ -1,0 +1,34 @@
+
+Circuit: * soi inverter
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Warning: Pd = 1.1e-05 is less than W.
+Warning: Ps = 1.1e-05 is less than W.
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+power                                      1.5
+out                                    1.49993
+gate1                                        0
+gate2                                        0
+btwnn                                 0.107875
+vgate2#branch                      1.63484e-06
+vgate1#branch                      1.63484e-06
+vpower#branch                     -3.27082e-06
+
+
+No. of Data Rows : 119
+tdiff               =  1.787605e-11 targ=  1.178760e-10 trig=  1.000000e-10
+
+Total analysis time (seconds) = 0.008
+
+Total elapsed time (seconds) = 0.016 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available =  993.719 MB.
+Maximum ngspice program size = 0 bytes.
+Current ngspice program size =    4.133 MB.

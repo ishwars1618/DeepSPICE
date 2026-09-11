@@ -1,0 +1,6 @@
+aux_files/
+ngspice-35.prev/
+.ipynb_checkpoints/
+simulation-output/
+simulation-programs/
+.DS_Store

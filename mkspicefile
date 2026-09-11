@@ -1,0 +1,71 @@
+#!/bin/bash
+
+path="${HOME}/Desktop/ML-Spice-2"
+
+high_voltage="1.5"
+
+circuit="$1"
+inputnum="$2"
+voltcross_in="$3"
+voltcross_out="$4"
+# list of rises and falls
+trans_list=$(echo "$@" | cut -d " " -f 5-)
+if [ $(echo $trans_list | tr " " "\n" | wc -l | sed 's/^ *//g') != $(( inputnum )) ]
+then
+	echo "Number of transitions given is incompatible with the given circuit."
+	exit 1
+fi
+
+program_dir="simulation-programs/"
+sim_dir="simulation-output/"
+filename="${circuit}_${inputnum}__$(echo $trans_list | tr " " "-")";
+program_name="${program_dir}${filename}.sp"
+sim_out_name="${sim_dir}${filename}.out"
+#echo $filename
+
+# create spice file
+cat "${path}/program-segments/header/header.sp" > "${program_name}"
+echo "" >> "${program_name}"
+cat "${path}/program-segments/netlists/${circuit}-${inputnum}.sp" >> "${program_name}"
+echo "" >> "${program_name}"
+echo "* Gate inputs" >> "${program_name}"
+
+n=1
+#echo $n
+for t in $trans_list
+do
+	# calculate the start time and end time with the given delay
+	letter_trans=$(echo $t | tr "_" " " | cut -d " " -f 1)
+	delay_val=$(echo $t | tr "_" " " | cut -d " " -f 2-)
+	#echo $letter_trans
+	#echo $delay_val
+	start_time=$(echo "100 - ${delay_val}" | bc -l)
+	end_time=$(echo "100 + ${delay_val}" | bc -l)
+	#echo $start_time
+	#echo $end_time
+
+	cat "${path}/program-segments/gate-opt/$letter_trans.sp" | sed "s/NUMBER/$n/g" >> "${program_name}"
+
+	# add in start and end times for this transition
+	sed -i '' "s/T_BEGIN/${start_time}/g" "${program_name}"
+	sed -i '' "s/T_END/${end_time}/g" "${program_name}"
+
+	((n+=1))
+done
+
+listgates=""
+for (( i=1; i<=$inputnum; i++ ))
+do
+	listgates="${listgates}v(gate$i) "
+done
+first_inchange=$(echo $trans_list | tr " " "\n" | nl | grep "R\|F" | head -1 | awk '{print $1}')
+#echo $first_inchange
+
+cat "${path}/program-segments/output/output.sp" >> "${program_name}"
+
+sed -i '' "s/LIST_GATES/${listgates}/g" "${program_name}"
+sed -i '' "s/CHNUMBER/${first_inchange}/g" "${program_name}"
+sed -i '' "s/VOLT_IN/${voltcross_in}/g" "${program_name}"
+sed -i '' "s/VOLT_OUT/${voltcross_out}/g" "${program_name}"
+sed -i '' "s/HIGH/${high_voltage}/g" "${program_name}"
+sed -i '' "s#F_OUT#\"${sim_out_name}\"#g" "${program_name}"

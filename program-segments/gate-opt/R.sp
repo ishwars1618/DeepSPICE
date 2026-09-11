@@ -1,0 +1,2 @@
+
+VgateNUMBER gateNUMBER 0 PWL (0 0v T_BEGINps 0v T_ENDps HIGHv 400ps HIGHv)

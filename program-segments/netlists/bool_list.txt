@@ -1,0 +1,14 @@
+NAND-2.py
+NOR-2.py
+5TO3_1-3.py
+5TO3_2-3.py
+4TO4_1-3.py
+8TO8_1-4.py
+9TO7_1-4.py
+10TO6_1-4.py
+14TO18_1-5.py
+15TO17_1-5.py
+16TO16_1-5.py
+24TO40_1-6.py
+30TO34_1-6.py
+59TO69_1-7.py
