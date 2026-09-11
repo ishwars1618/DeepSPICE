@@ -1,6 +1,6 @@
 # DeepSPICE: Accelerating Digital Cell Characterization Using Deep Learning (2022)
 
-I created the DeepSPICE methodology to accelerate the computation of delays for all input event combinations in a given standard cell (the transistor-based physical implementation of a boolean function). I do this by training a Multi-layer Perceptron (MLP) on a subset of input event combinations, and evaluating delays using the MLP for the remaining input event combinations.
+I created the DeepSPICE methodology to accelerate the computation of delays for all input event combinations in a given standard cell (the transistor-based physical implementation of a boolean function). I do this by training a Deep Neural Network (DNN) on a subset of input event combinations, and evaluating delays using the DNN for the remaining input event combinations.
 
 ## How to run
 
